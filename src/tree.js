@@ -1,19 +1,10 @@
 import { Node } from "./node";
 export { Tree };
 
-function Tree() {
+function Tree(arr) {
     let root;
-    let sortedArray;
+    let sortedArray = arr;
     
-
-    const getRoot = () => root;
-
-    const getArray = () => sortedArray;
-
-    const setRoot = (val) => {
-        root = val;
-    };
-
     const sortArray = (arr) => {
         let sorted = [];
         let duplicates = [];
@@ -26,8 +17,21 @@ function Tree() {
         }
         sorted.sort((a , b) => a - b);
         sortedArray = sorted;
-        return sorted;
+        
     }
+
+    
+
+    const getRoot = () => root;
+
+    const getArray = () => sortedArray;
+
+    const setRoot = (val) => {
+        root = val;
+    };
+
+
+    
 
     const getMidIndex = (sorted) => {
         return Math.floor(sorted.length / 2);
@@ -51,6 +55,10 @@ function Tree() {
         
     }
 
+    const insert = (value) => {
+
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -64,7 +72,7 @@ function Tree() {
         }
       };
      
-
+      sortArray(sortedArray);
     
     return {
         getRoot,
