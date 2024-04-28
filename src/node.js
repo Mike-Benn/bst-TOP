@@ -5,7 +5,7 @@ function Node(val) {
     let value = val;
     let left = null;
     let right = null;
-    let parent = null;
+    
 
 
     const getValue = () => value;
@@ -14,7 +14,7 @@ function Node(val) {
 
     const getRight = () => right;
 
-    const getParent = () => parent;
+
 
     const setValue = (val) => {
         value = val;
@@ -28,19 +28,14 @@ function Node(val) {
         right = node;
     }
 
-    const setParent = (node) => {
-        parent = node;
-    }
 
     return {
         getValue,
         getLeft,
         getRight,
-        getParent,
         setValue,
         setLeft,
         setRight,
-        setParent
     }
 
 
