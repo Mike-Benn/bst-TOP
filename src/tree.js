@@ -55,6 +55,7 @@ function Tree(arr) {
         rootNode.setValue(sorted[midIndex]);
         rootNode.setLeft(buildTree(leftArray));
         rootNode.setRight(buildTree(rightArray));
+        duplicateArray[rootNode.getValue()] = 1;
 
         return rootNode;
         
@@ -161,6 +162,24 @@ function Tree(arr) {
         }
     }
     
+    const find = (value) => {
+        if (duplicateArray[value] !== undefined) {
+            let currNode = root;
+            while (currNode !== null) {
+                if (value < currNode.getValue()) {
+                    currNode = currNode.getLeft();
+                } else if (value > currNode.getValue()) {
+                    currNode = currNode.getRight();
+                } else {
+                    return currNode;
+                }
+                
+            }
+        } else {
+            console.log("This node does not exist within the binary search tree.");
+        }
+    }
+
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -187,6 +206,7 @@ function Tree(arr) {
         buildTree,
         insertValue,
         deleteValue,
+        find,
         prettyPrint,
         
 
