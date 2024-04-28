@@ -4,14 +4,14 @@ export { Tree };
 function Tree(arr) {
     let root;
     let sortedArray = arr;
+    let duplicateArray = [];
     
     const sortArray = (arr) => {
         let sorted = [];
-        let duplicates = [];
         
         for (let i = 0; i < arr.length; i++) {
-            if (duplicates[arr[i]] === undefined) {
-                duplicates[arr[i]] = 1;
+            if (duplicateArray[arr[i]] === undefined) {
+                duplicateArray[arr[i]] = 1;
                 sorted.push(arr[i]);
             } 
         }
@@ -24,7 +24,9 @@ function Tree(arr) {
 
     const getRoot = () => root;
 
-    const getArray = () => sortedArray;
+    const getSortedArray = () => sortedArray;
+
+    const getDuplicateArray = () => duplicateArray;
 
     const setRoot = (val) => {
         root = val;
@@ -56,30 +58,62 @@ function Tree(arr) {
     }
 
     const insert = (value) => {
+        let newNode = Node(value);
 
+        if (duplicateArray[value] === undefined) {
+            let currNode = root;
+            duplicateArray[value] = 1;
+
+            while (true) {
+                if (value < currNode.getValue()) {
+                    if (currNode.getLeft() !== null) {
+                        currNode = currNode.getLeft();
+                        
+                    } else if (currNode.getLeft() === null) {
+                        currNode.setLeft(newNode);
+                        break;
+
+                    }
+                }
+                
+                if (value > currNode.getValue()) {
+                    if (currNode.getRight() !== null) {
+                        currNode = currNode.getRight();
+                    
+                    } else if (currNode.getRight() === null) {
+                        currNode.setRight(newNode);
+                        break;
+                    }
+                }
+            }
+            
+        }
     }
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
-          return;
+            return;
         }
         if (node.getRight() !== null) {
-          prettyPrint(node.getRight(), `${prefix}${isLeft ? "│   " : "    "}`, false);
+            prettyPrint(node.getRight(), `${prefix}${isLeft ? "\u2502   " : "    "}`, false);
         }
-        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+        console.log(`${prefix}${isLeft ? "\u2514\u2500\u2500 " : "\u250C\u2500\u2500 "}${node.getValue()}`);
         if (node.getLeft() !== null) {
-          prettyPrint(node.getLeft(), `${prefix}${isLeft ? "    " : "│   "}`, true);
+            prettyPrint(node.getLeft(), `${prefix}${isLeft ? "    " : "\u2502   "}`, true);
         }
-      };
+    };
+    
      
       sortArray(sortedArray);
     
     return {
         getRoot,
-        getArray,
+        getSortedArray,
+        getDuplicateArray,
         setRoot,
         sortArray,
         buildTree,
+        insert,
         prettyPrint,
 
     }
