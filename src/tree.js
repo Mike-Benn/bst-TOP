@@ -180,13 +180,6 @@ function Tree(arr) {
         }
     }
 
-    const levelOrder = (callBack) => {
-        let valArr = [];
-        let queue = [];
-        queue.push(root);
-        return levelOrderHelper(callBack , queue , valArr);
-        
-    }
 
     const levelOrderHelper = (callBack , queueArr , valueArray) => {
         let queue = queueArr;
@@ -214,7 +207,14 @@ function Tree(arr) {
 
     }
 
-    
+    const levelOrder = (callBack) => {
+        let valArr = [];
+        let queue = [];
+        queue.push(root);
+        return levelOrderHelper(callBack , queue , valArr);
+        
+    }
+
 
     const preOrderHelper = (callBack , root , valueArray) => {
 
@@ -227,7 +227,6 @@ function Tree(arr) {
         } else {
             valueArray.push(root.getValue());
         }
-
         preOrderHelper(callBack , root.getLeft() , valueArray);
         preOrderHelper(callBack , root.getRight() , valueArray);
 
@@ -238,6 +237,50 @@ function Tree(arr) {
     const preOrder = (callBack) => {
         let valArr = [];
         return preOrderHelper(callBack , root , valArr);
+    }
+
+    const inOrderHelper = (callBack , root , valueArray) => {
+        if (root === null) {
+            return valueArray;
+        }
+
+        inOrderHelper(callBack , root.getLeft() , valueArray);
+        if (callBack && typeof callBack === 'function') {
+            valueArray.push(callBack(root.getValue()));
+        } else {
+            valueArray.push(root.getValue());
+        }
+        inOrderHelper(callBack , root.getRight() , valueArray);
+
+        return valueArray;
+
+    }
+
+    const inOrder = (callBack) => {
+        let valArr = [];
+        return inOrderHelper(callBack , root , valArr);
+    }
+
+    const postOrderHelper = (callBack , root , valueArray) => {
+        if (root === null) {
+            return valueArray;
+        }
+
+        postOrderHelper(callBack , root.getLeft() , valueArray);
+        postOrderHelper(callBack , root.getRight() , valueArray);
+        if (callBack && typeof callBack === 'function') {
+            valueArray.push(callBack(root.getValue()));
+        } else {
+            valueArray.push(root.getValue());
+        }
+        
+        return valueArray;
+
+    }
+
+    const postOrder = (callBack) => {
+        let valArr = [];
+        return postOrderHelper(callBack , root , valArr);
     }
 
     // Displays tree in console
@@ -269,6 +312,8 @@ function Tree(arr) {
         find,
         levelOrder,
         preOrder,
+        inOrder,
+        postOrder,
         prettyPrint,
         
 
