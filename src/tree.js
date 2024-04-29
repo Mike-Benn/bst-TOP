@@ -180,6 +180,41 @@ function Tree(arr) {
         }
     }
 
+    const levelOrder = (callBack) => {
+        let valArr = [];
+        let queue = [];
+        queue.push(root);
+        return levelOrderHelper(callBack , queue , valArr);
+        
+    }
+
+    const levelOrderHelper = (callBack , queueArr , valueArray) => {
+        let queue = queueArr;
+        
+        if (queue.length < 1) {
+            return valueArray;
+        }
+
+        let node = queue.shift();
+
+        if (node.getLeft() !== null) {
+            queue.push(node.getLeft());
+        }
+        if (node.getRight() !== null) {
+            queue.push(node.getRight());
+        }
+
+        if (callBack && typeof callBack === 'function') {
+            valueArray.push(callBack(node.getValue()));
+        } else {
+            valueArray.push(node.getValue());
+        }
+        
+        return levelOrderHelper(callBack , queue , valueArray);
+
+    }
+
+
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -207,6 +242,7 @@ function Tree(arr) {
         insertValue,
         deleteValue,
         find,
+        levelOrder,
         prettyPrint,
         
 
