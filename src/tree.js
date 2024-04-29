@@ -273,7 +273,7 @@ function Tree(arr) {
         } else {
             valueArray.push(root.getValue());
         }
-        
+
         return valueArray;
 
     }
@@ -282,6 +282,29 @@ function Tree(arr) {
         let valArr = [];
         return postOrderHelper(callBack , root , valArr);
     }
+
+    const depth = (nodeValue) => {
+        if (duplicateArray[nodeValue] !== undefined) {
+            let depthVal = 0;
+            let currNode = root;
+            while (currNode !== null) {
+                if (nodeValue === currNode.getValue()) {
+                    break;
+                } else {
+                    depthVal++;
+                    if (nodeValue > currNode.getValue()) {
+                        currNode = currNode.getRight();
+                    } else {
+                        currNode = currNode.getLeft();
+                    }
+                }
+            }
+            return depthVal;
+        } else {
+            return "That value does not exist within the binary tree."
+        }
+    }
+
 
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -314,6 +337,7 @@ function Tree(arr) {
         preOrder,
         inOrder,
         postOrder,
+        depth,
         prettyPrint,
         
 
