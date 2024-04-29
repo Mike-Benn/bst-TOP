@@ -214,6 +214,31 @@ function Tree(arr) {
 
     }
 
+    
+
+    const preOrderHelper = (callBack , root , valueArray) => {
+
+        if (root === null) {
+            return valueArray;
+        }
+
+        if (callBack && typeof callBack === 'function') {
+            valueArray.push(callBack(root.getValue()));
+        } else {
+            valueArray.push(root.getValue());
+        }
+
+        preOrderHelper(callBack , root.getLeft() , valueArray);
+        preOrderHelper(callBack , root.getRight() , valueArray);
+
+        
+        return valueArray;
+    }
+
+    const preOrder = (callBack) => {
+        let valArr = [];
+        return preOrderHelper(callBack , root , valArr);
+    }
 
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -243,6 +268,7 @@ function Tree(arr) {
         deleteValue,
         find,
         levelOrder,
+        preOrder,
         prettyPrint,
         
 
