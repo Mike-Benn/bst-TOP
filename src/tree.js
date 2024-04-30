@@ -301,10 +301,32 @@ function Tree(arr) {
             }
             return depthVal;
         } else {
-            return "That value does not exist within the binary tree."
+            return "That value does not exist within the binary tree.";
         }
     }
 
+    const heightHelper = (node) => {
+        if (node === null) {
+            return -1;
+        }
+
+        let leftHeight = heightHelper(node.getLeft());
+        let rightHeight = heightHelper(node.getRight());
+
+        let maxHeight = Math.max(leftHeight , rightHeight);
+
+        return maxHeight + 1;
+
+    }
+
+    const height = (node) => {
+
+        if (node === null || duplicateArray[node.getValue()] === undefined) {
+            return "That value does not exist within the binary tree.";
+        } else {
+            return heightHelper(node);
+        }
+    }
 
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -338,9 +360,11 @@ function Tree(arr) {
         inOrder,
         postOrder,
         depth,
+        height,
         prettyPrint,
         
 
 
     }
 }
+
