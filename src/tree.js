@@ -28,6 +28,7 @@ function Tree(arr) {
     // Sorts an array in ascending order after removing any duplicate values, sets sortedArray Tree variable with the sorted array
     const sortArray = (arr) => {
         let sorted = [];
+        duplicateArray = [];
         
         for (let i = 0; i < arr.length; i++) {
             if (duplicateArray[arr[i]] === undefined) {
@@ -36,14 +37,14 @@ function Tree(arr) {
             } 
         }
         sorted.sort((a , b) => a - b);
-        sortedArray = sorted;
+        return sorted;
         
     }
 
 
     // Takes an array and builds a Binary Search Tree from the array
     const buildTree = (sorted) => {
-        if (sorted.length === 0) {
+        if (sorted === null || sorted.length === 0) {
             return null;
         }
 
@@ -349,8 +350,16 @@ function Tree(arr) {
         }
     };
     
-    
-      sortArray(sortedArray);
+    const rebalance = () => {
+        if (isBalanced() === false) {
+            sortedArray = sortArray(levelOrder());
+            setRoot(buildTree(sortedArray));
+            
+        }
+
+        
+    }
+      sortedArray = sortArray(sortedArray);
     
     return {
         getRoot,
@@ -369,6 +378,7 @@ function Tree(arr) {
         depth,
         height,
         isBalanced,
+        rebalance,
         prettyPrint,
         
 
