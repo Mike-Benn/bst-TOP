@@ -328,6 +328,13 @@ function Tree(arr) {
         }
     }
 
+    const isBalanced = () => {
+        let leftHeight = height(root.getLeft());
+        let rightHeight = height(root.getRight());
+        
+        return (leftHeight - rightHeight <= 1 && leftHeight - rightHeight >= -1);
+    }
+
     // Displays tree in console
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -342,7 +349,7 @@ function Tree(arr) {
         }
     };
     
-     
+    
       sortArray(sortedArray);
     
     return {
@@ -361,6 +368,7 @@ function Tree(arr) {
         postOrder,
         depth,
         height,
+        isBalanced,
         prettyPrint,
         
 
